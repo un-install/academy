@@ -2,9 +2,10 @@ package homework4;
 
 import java.util.HashMap;
 
-public class Bank<Integer, V extends Asset> extends HashMap<Integer, V> {
+public class Bank<Integer, V extends Asset> {
     private final String addr;
-    V asset;
+    private V asset;
+    HashMap<Integer, V> map = new HashMap<>();
 
     public Bank (String addr){
         this.addr = addr;
@@ -12,29 +13,29 @@ public class Bank<Integer, V extends Asset> extends HashMap<Integer, V> {
 
     public void withdraw (Integer id, long amount) {
         if (this.isUser(id)) {
-            asset = super.get(id);
-            asset.setQuantity(super.get(id).getQuantity() - amount);
-            super.put(id, asset);
+            asset = map.get(id);
+            asset.setQuantity(map.get(id).getQuantity() - amount);
+            map.put(id, asset);
         }
     }
 
     public void  add (Integer id, long amount) {
         if (this.isUser(id)) {
-            asset = super.get(id);
-            asset.setQuantity(super.get(id).getQuantity() + amount);
-            super.put(id, asset);
+            asset = map.get(id);
+            asset.setQuantity(map.get(id).getQuantity() + amount);
+            map.put(id, asset);
         }
     }
 
     public void toZero (Integer id) {
         if (this.isUser(id)) {
-            asset = super.get(id);
+            asset = map.get(id);
             asset.setQuantity(0);
-            super.put(id, asset);
+            map.put(id, asset);
         }
     }
 
     public <K> boolean isUser (K id){
-        return super.containsKey(id);
+        return map.containsKey(id);
     }
 }
