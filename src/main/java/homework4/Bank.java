@@ -3,7 +3,7 @@ package homework4;
 import java.util.HashMap;
 
 public class Bank<Integer, V extends Asset> extends HashMap<Integer, V> {
-    public final String addr;
+    private final String addr;
     V asset;
 
     public Bank (String addr){
