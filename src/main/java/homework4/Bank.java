@@ -23,8 +23,10 @@ public class Bank<V extends Asset> {
 
     public void put(V value) {
         if (Bank.isAsset(value)) {
-            if (assets == null)
+            if (assets == null) {
                 this.add(value);
+                return;
+            }
 
             for (int i = 0; i < assets.length; i++) {
                 if (assets[i].getClass().getSimpleName().equals(value.getClass().getSimpleName())) {
