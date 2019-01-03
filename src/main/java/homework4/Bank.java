@@ -22,7 +22,6 @@ public class Bank<V extends Asset> {
 
 
     public void put(V value) {
-        if (Bank.isAsset(value)) {
             if (assets == null) {
                 this.add(value);
                 return;
@@ -35,7 +34,6 @@ public class Bank<V extends Asset> {
                 }
             }
             this.add(value);
-        }
     }
 
 
@@ -58,6 +56,13 @@ public class Bank<V extends Asset> {
         System.out.println("added new Asset: " + newValue.getClass().getSimpleName());
     }
 
+    public Asset[] getAssets() {
+        return assets;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
 
     public void printBank() {
         for (Asset a : assets) {
@@ -65,7 +70,4 @@ public class Bank<V extends Asset> {
         }
     }
 
-    public static <T> boolean isAsset(T asset) {
-        return asset instanceof Asset;
-    }
 }
