@@ -15,7 +15,7 @@ public class FruitsStore {
 
     public List<Fruits> getFreshFruits(LocalDate date) {
         return fruits.stream().filter(fruit ->
-                (fruit.getFreshnesTerm() >= this.lifeTimeCalc(date, fruit.getDeliveryDate())))
+                (fruit.getFreshnesTerm() >= lifeTimeCalc(date, fruit.getDeliveryDate())))
                 .collect(Collectors.toList());
     }
 
@@ -30,13 +30,13 @@ public class FruitsStore {
     }
 
     public List<Fruits> getFreshFruitsByType (FruitsEnum fEnum, LocalDate date) {
-        ArrayList<Fruits> f = new ArrayList<>(this.getFreshFruits(date));
+        ArrayList<Fruits> f = new ArrayList<>(getFreshFruits(date));
         return f.stream().filter(fruit -> fruit.getFEnum() == fEnum).collect(Collectors.toList());
     }
 
-    public void doSale (int realiztionTerm, LocalDate date, float percent, FruitsEnum... fEnums) {
-            fruits = new ArrayList<>(fruits.stream().map(fruit ->
-                    ((fruit.getFreshnesTerm() - this.lifeTimeCalc(date, fruit.getDeliveryDate())
+    public List<Fruits> doSale (int realiztionTerm, LocalDate date, float percent, FruitsEnum... fEnums) {
+            return new ArrayList<>(fruits.stream().map(fruit ->
+                    ((fruit.getFreshnesTerm() - lifeTimeCalc(date, fruit.getDeliveryDate())
                             < realiztionTerm && Arrays.stream(fEnums).distinct().anyMatch(fruit.getFEnum()::equals))
                             ? new Fruits(fruit.getFreshnesTerm(), fruit.getDeliveryDate(), (int) (fruit.getPrice() * (percent/100)), fruit.getFEnum()) : fruit))
                     .collect(Collectors.toList()));
@@ -48,9 +48,9 @@ public class FruitsStore {
 
     @Override
     public String toString() {
-        String s = null;
+        String s = "";
         for (Fruits f : fruits){
-            s += f;
+            s += f + "\n";
         }
         return s;
     }

@@ -31,7 +31,6 @@ public class Main {
         store.getFruitsByFreshnesTerm(12).forEach(f -> System.out.println(f));
 
         System.out.println("\nSale:");
-        store.doSale(5, date, 50, FruitsEnum.APPLE);
-        System.out.println(store);
+        store.doSale(5, date, 50, FruitsEnum.APPLE).forEach(f -> System.out.println(f));
     }
 }
