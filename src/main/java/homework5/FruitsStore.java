@@ -46,8 +46,12 @@ public class FruitsStore {
         return (date.getDayOfYear() + date.getYear()*365) - (creationDate.getDayOfYear() + creationDate.getYear()*365);
     }
 
-
-    public void printStore () {
-        fruits.forEach(f -> System.out.println(f));
+    @Override
+    public String toString() {
+        String s = null;
+        for (Fruits f : fruits){
+            s += f;
+        }
+        return s;
     }
 }
