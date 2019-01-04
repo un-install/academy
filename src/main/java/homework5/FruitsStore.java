@@ -21,7 +21,7 @@ public class FruitsStore {
 
     public List<Fruits> getFruitsByType(FruitsEnum fEnum) {
         return fruits.stream().filter(fruit ->
-                fruit.getFEnum() == fEnum).collect(Collectors.toList());
+                fruit.getFEnum().equals(fEnum)).collect(Collectors.toList());
     }
 
     public List<Fruits> getFruitsByFreshnesTerm (int freshnessTerm) {
