@@ -38,11 +38,11 @@ public class FruitsStore {
             return new ArrayList<>(fruits.stream().map(fruit ->
                     ((fruit.getFreshnesTerm() - lifeTimeCalc(date, fruit.getDeliveryDate())
                             < realiztionTerm && Arrays.stream(fEnums).distinct().anyMatch(fruit.getFEnum()::equals))
-                            ? new Fruits(fruit.getFreshnesTerm(), fruit.getDeliveryDate(), (int) (fruit.getPrice() * (percent/100)), fruit.getFEnum()) : fruit))
+                            ? new Fruits(fruit.getFEnum(), fruit.getFreshnesTerm(), fruit.getDeliveryDate(), (int) (fruit.getPrice() * (percent/100)), fruit.getVitamins()) : fruit))
                     .collect(Collectors.toList()));
     }
 
-    public int lifeTimeCalc (LocalDate date, LocalDate creationDate) {
+    public static int lifeTimeCalc (LocalDate date, LocalDate creationDate) {
         return (date.getDayOfYear() + date.getYear()*365) - (creationDate.getDayOfYear() + creationDate.getYear()*365);
     }
 

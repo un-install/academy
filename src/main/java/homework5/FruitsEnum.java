@@ -1,7 +1,7 @@
 package homework5;
 
 public enum FruitsEnum {
-    STRAWBERRY("Red and round"), APPLE("Grow on treas"), PEA("Supersweet");
+    STRAWBERRY("Red and round"), APPLE("Grow on treas"), PEA("Supersweet"), ORANGE("round and orange");
 
     private final String description;
 

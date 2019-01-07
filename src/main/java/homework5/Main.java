@@ -11,10 +11,10 @@ public class Main {
     public static void main(String[] args) {
         FruitsStore store = new FruitsStore();
 
-        store.add(new Fruits(10, LocalDate.of(2019, Month.JANUARY, 2), 15, FruitsEnum.STRAWBERRY));
-        store.add(new Fruits(12, LocalDate.of(2018, Month.DECEMBER, 2), 7, FruitsEnum.APPLE));
-        store.add(new Fruits(12, LocalDate.of(2019, Month.JANUARY, 1), 8, FruitsEnum.APPLE));
-        store.add(new Fruits(15, LocalDate.of(2018, Month.NOVEMBER, 2), 8, FruitsEnum.PEA));
+        store.add(new Fruits(FruitsEnum.STRAWBERRY,10, LocalDate.of(2019, Month.JANUARY, 2), 15, null));
+        store.add(new Fruits(FruitsEnum.APPLE, 12, LocalDate.of(2018, Month.DECEMBER, 2), 7, null));
+        store.add(new Fruits(FruitsEnum.APPLE,12, LocalDate.of(2019, Month.JANUARY, 1), 8, null));
+        store.add(new Fruits(FruitsEnum.PEA,15, LocalDate.of(2018, Month.NOVEMBER, 2), 8, null));
 
         LocalDate date = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
