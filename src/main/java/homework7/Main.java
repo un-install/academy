@@ -1,33 +1,26 @@
 package homework7;
 
 import homework5.Fruits;
-import homework6.Vitamins;
 import lesson6.Animal;
-
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static homework5.FruitsEnum.*;
-import static homework6.Vitamins.*;
-
 public class Main {
     public static void main(String[] args) {
-        homework6.Main main = new homework6.Main();
-        List<Fruits> fruits = new ArrayList<>();
+        List<Fruits> fruits;
 
         try {
-            Method method = main.getClass().getDeclaredMethod("fillFruitsList");
+            Method method = Class.forName(homework6.Main.class.getName()).getDeclaredMethod("fillFruitsList");
             method.setAccessible(true);
-            fruits = (ArrayList)method.invoke(main);
+            fruits = (ArrayList)method.invoke(new homework6.Main());
 
             //clone List
-            List<Fruits> fruitsClone = new ArrayList<>();
+            List<Fruits> fruitsClone;
             fruitsClone = fruits.stream().map(f -> deepClone(f)).collect(Collectors.toList());
 
             //provide some changes
