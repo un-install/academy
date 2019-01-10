@@ -1,16 +1,17 @@
 package homework6;
 
 import homework5.Fruits;
+import homework5.FruitsEnum;
 import homework5.FruitsStore;
 
-import javax.sound.midi.Soundbank;
 import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.concurrent.Callable;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static homework6.Vitamins.*;
 import static homework5.FruitsEnum.*;
@@ -113,7 +114,34 @@ public class Main {
 
         //output fruit which is  oldest in store
         //using reduce
-        System.out.println("Oldest Fruit: \n" + fruits.stream().reduce((f1, f2) -> FruitsStore.lifeTimeCalc(date, f1.getDeliveryDate()) > FruitsStore.lifeTimeCalc(date, f2.getDeliveryDate()) ? f1 : f2).get());
+        System.out.println("Oldest Fruit: \n" + fruits.stream().reduce((f1, f2) -> FruitsStore
+                .lifeTimeCalc(date, f1.getDeliveryDate()) > FruitsStore.lifeTimeCalc(date, f2.getDeliveryDate()) ? f1 : f2).get());
+        System.out.println();
+
+
+
+
+        /**Lesson 6**/
+        fruits.stream().forEach(f -> System.out.println(f + ": " + f.getVitamins()));
+        System.out.println();
+
+        fruits.stream().flatMap(f -> (f.getVitamins().stream())).distinct().forEach(f -> System.out.print(f + ","));
+
+        Stream<LocalDate> st = fruits.stream().map(f -> f.getDeliveryDate());
+        List<LocalDate> deliveryDates = st.collect(Collectors.toList());
+        deliveryDates.forEach(System.out::println);
+
+        ArrayDeque<LocalDate> dD = fruits.stream().map(f -> f.getDeliveryDate()).collect(Collectors.toCollection(ArrayDeque::new));
+        dD.forEach(System.out::println);
+
+        Map<Integer, Fruits> fts = fruits.stream().collect(Collectors
+                .toMap(f -> f.getPrice(), Function.identity(), (f1, f2) -> f1));
+        fts.forEach((p,f) -> System.out.println(p + " " + f));
+        System.out.println();
+
+        fruits.stream().map(f -> f.getFEnum().toString()).distinct().collect(Collectors.joining(",", "[", "]"));
+        Map<FruitsEnum, List<Fruits>> groupedFruits = fruits.stream().collect(Collectors.groupingBy(Fruits::getFEnum));
+        groupedFruits.forEach((k,v) -> System.out.println(k + "" + v));
 
 
     }

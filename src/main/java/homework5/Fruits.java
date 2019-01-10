@@ -2,10 +2,11 @@ package homework5;
 
 import homework6.Vitamins;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Fruits {
+public class Fruits implements Serializable {
     private int freshnesTerm;
     private LocalDate deliveryDate;
     private int price;
@@ -27,7 +28,10 @@ public class Fruits {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDate deliveryDate) {
+    public void setDeliveryDate(LocalDate deliveryDate) throws Exception{
+        if (deliveryDate.getYear() > LocalDate.now().getYear()) {
+            throw new Exception("Fruits from future not allowed");
+        }
         this.deliveryDate = deliveryDate;
     }
 
@@ -47,9 +51,18 @@ public class Fruits {
         this.vitamins = vitamins;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(int price) throws ArithmeticException{
+        if (price <= 0) {
+            throw new ArithmeticException("Price can be only positive");
+        }
         this.price = price;
     }
+
+    public void putOnlyFruit (Object o) {
+
+    }
+
+
 
     @Override
     public String toString() {
