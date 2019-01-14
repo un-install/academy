@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class SynchronyzedList<T> extends ArrayList<T> {
+    Object o;
 
     public SynchronyzedList(){
         super();
@@ -26,7 +27,7 @@ public class SynchronyzedList<T> extends ArrayList<T> {
     //example of sync block
     @Override
     public void sort(Comparator<? super T> comparator) {
-        synchronized (this) {
+        synchronized (o) {
             super.sort(comparator);
         }
     }
