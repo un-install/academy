@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        List<Fruits> fruits;
+        List<Fruits> fruits = new ArrayList<>();
 
         try {
-            Method method = Class.forName(homework6.Main.class.getName()).getDeclaredMethod("fillFruitsList");
+            Method method = homework6.Main.class.getDeclaredMethod("fillFruitsList");
             method.setAccessible(true);
             fruits = (ArrayList)method.invoke(new homework6.Main());
 
@@ -39,7 +39,7 @@ public class Main {
             fruitsClone.forEach(System.out::println);
 
             //get private Constructor using reflex API
-            Constructor constructor = Class.forName(Animal.class.getName()).getDeclaredConstructor();
+            Constructor constructor = Animal.class.getDeclaredConstructor();
             constructor.setAccessible(true);
             System.out.println("\n" + (Animal) constructor.newInstance());
 
@@ -49,7 +49,6 @@ public class Main {
         }catch (Throwable e){
             e.printStackTrace();
         }
-
     }
 
     public static <T> T deepClone(T t){
