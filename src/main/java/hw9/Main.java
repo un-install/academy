@@ -9,10 +9,9 @@ public class Main {
     public static void main(String[] args) {
         AtomicInteger resource = new AtomicInteger(0);
         CountThread countThread = new CountThread(resource);
-        ExecutorService executor = Executors.newFixedThreadPool(6);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
         List<Future<AtomicInteger>> results = new ArrayList<>();
         try {
-            results.add(executor.submit(countThread));
             results.add(executor.submit(countThread));
             results.add(executor.submit(countThread));
             results.add(executor.submit(countThread));

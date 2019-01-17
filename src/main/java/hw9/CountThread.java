@@ -16,12 +16,8 @@ public class CountThread implements Callable<AtomicInteger> {
 
     @Override
     public AtomicInteger call() {
-        try {
-            for (int i = 0; i < 500; i++){
-                rs.incrementAndGet();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        for (int i = 0; i < 500; i++){
+            rs.incrementAndGet();
         }
         return rs;
     }
