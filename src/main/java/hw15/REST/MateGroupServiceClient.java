@@ -18,7 +18,7 @@ public class MateGroupServiceClient {
     public static void main(String[] args) {
         try {
 
-            HttpURLConnection conn = setTeacher("18122018/setTeacher/");
+            HttpURLConnection conn = setTeacher("18122018/teacher/");
             showInfo(conn);
 
         } catch (IOException e) {

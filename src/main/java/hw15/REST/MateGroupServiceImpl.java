@@ -36,7 +36,7 @@ public class MateGroupServiceImpl implements MateGroupService {
 
     @Override
     @PUT
-    @Path("/{groupId}/setTeacher")
+    @Path("/{groupId}/teacher")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setTeacher(@PathParam("groupId") int groupId, Teacher teacher) {
