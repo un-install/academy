@@ -53,32 +53,30 @@ public class MateGroupServiceImpl implements MateGroupService {
 	@DELETE
 	@Path("/students/{surname}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteStudent(@PathParam("groupId") int groupId,@PathParam("surname") String surname) {
+	public Response deleteStudent(@PathParam("groupId") int groupId, @PathParam("surname") String surname) {
 		MateGroup mateGroup = mateGroups.get(groupId);
-		if (mateGroup != null && mateGroup.getStudents().stream().anyMatch(f -> f.getSurname().equals(surname))) {
-			mateGroup.setStudents(mateGroup.getStudents().stream().filter(f -> !f.getSurname().equals(surname)).collect(Collectors.toList()));
-			mateGroups.put(groupId, mateGroup);
+
+		if (mateGroup.getStudents().stream().anyMatch(f -> surname.equals(f.getSurname())) && mateGroup != null && surname != null) {
+			mateGroup.getStudents().removeIf(f -> surname.equals(f.getSurname()));
 			return Response.status(Status.ACCEPTED).entity(mateGroup).type(MediaType.APPLICATION_JSON).build();
 		}
+
 		return Response.status(Status.NOT_FOUND).build();
 	}
 
 	@Override
 	@PUT
 	@Path("/students/update/{surname}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateStudent(@PathParam("groupId") int groupId,@PathParam("surname") String surname, @QueryParam("name") String name) {
 		MateGroup mateGroup = mateGroups.get(groupId);
-		if (mateGroup != null) {
-			List<Person> students = mateGroup.getStudents().stream().map(f ->
-			{
-				if(f.getSurname().equals(surname))
+
+		if (mateGroup != null && surname != null && mateGroup.getStudents().stream().anyMatch(f -> surname.equals(f.getSurname()))) {
+			mateGroup.setStudents(mateGroup.getStudents().stream().map(f -> {
+				if(surname.equals(f.getSurname()))
 					f.setName(name);
 				return f;
-			}
-			).collect(Collectors.toList());
-			mateGroup.setStudents(students);
+			}).collect(Collectors.toList()));
 			return Response.status(Status.ACCEPTED).entity(mateGroup).type(MediaType.APPLICATION_JSON).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
