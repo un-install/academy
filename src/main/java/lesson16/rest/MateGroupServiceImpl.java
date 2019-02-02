@@ -112,7 +112,7 @@ public class MateGroupServiceImpl implements MateGroupService {
 
 	//add new hr
 	@PUT
-	@Path("/hrs/add")
+	@Path("/hrs")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addHr(@PathParam("groupId") int groupId, HumanResource hr) {
@@ -126,7 +126,7 @@ public class MateGroupServiceImpl implements MateGroupService {
 
 	//remove hr
 	@DELETE
-	@Path("/hrs/delete/{hrId}")
+	@Path("/hrs/{hrId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteHr(@PathParam("groupId") int groupId, @PathParam("hrId") int hrId) {
 		MateGroup mateGroup = mateGroups.get(groupId);
@@ -140,7 +140,7 @@ public class MateGroupServiceImpl implements MateGroupService {
 
 	//update hr. change startWorkYear via queryParam
 	@PUT
-	@Path("hrs/update/start-work-year/{hrId}")
+	@Path("/hrs/{hrId}/start-work-year")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateStartWorkYear(@PathParam("groupId") int groupId, @PathParam("hrId") int hrId, @QueryParam("start-work-year") int startWorkYear) {
 		MateGroup mateGroup = mateGroups.get(groupId);

@@ -36,13 +36,13 @@ public class MateGroupServiceClient {
 			conn = getHr("18122018/hrs/1");
 			showInfo(conn);
 
-			conn = addHr("18122018/hrs/add");
+			conn = addHr("18122018/hrs");
 			showInfo(conn);
 
-			conn = deleteHr("18122018/hrs/delete/1");
+			conn = deleteHr("18122018/hrs/1");
 			showInfo(conn);
 
-			conn = updateStartWorkYear("18122018/hrs/update/start-work-year/4?start-work-year=2000");
+			conn = updateStartWorkYear("18122018/hrs/4/start-work-year?start-work-year=2000");
 			showInfo(conn);
 
 		} catch (IOException e) {
