@@ -18,14 +18,16 @@ public class Person implements Serializable {
 	private String name;
 	private String surname;
 	private int yearOfBorn;
+	private int personId;
 
 	public Person() {
 	}
 
-	public Person(String name, String surname, int yearOfBorn) {
+	public Person(String name, String surname, int yearOfBorn, int personId) {
 		this.name = name;
 		this.surname = surname;
 		this.yearOfBorn = yearOfBorn;
+		this.personId = personId;
 	}
 
 	public String getName() {
@@ -52,9 +54,17 @@ public class Person implements Serializable {
 		this.yearOfBorn = yearOfBorn;
 	}
 
+	public int getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+
 	@Override
 	public String toString() {
-		return "Person [name=" + name + ", surname=" + surname + ", yearOfBorn=" + yearOfBorn + "]";
+		return "Person [id=" + personId + ", name=" + name + ", surname=" + surname + ", yearOfBorn=" + yearOfBorn + "]";
 	}
 
 }
