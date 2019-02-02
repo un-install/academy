@@ -42,7 +42,7 @@ public class MateGroupServiceClient {
 			conn = deleteHr("18122018/hrs/1");
 			showInfo(conn);
 
-			conn = updateStartWorkYear("18122018/hrs/4/start-work-year?start-work-year=2000");
+			conn = updateStartWorkYear("18122018/hrs/4?start-work-year=2000");
 			showInfo(conn);
 
 		} catch (IOException e) {
@@ -128,7 +128,7 @@ public class MateGroupServiceClient {
 		URL url = new URL("http://localhost:9998/rs/mate/" + pathParam);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
-		conn.setRequestMethod("PUT");
+		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type", "application/json");
 		String input = "{\"name\": \"Eric\",\"surname\": \"Clapton\",\"yearOfBorn\": 1997, \"personId\": 4, \"startWorkYear\": 2007	}";
 

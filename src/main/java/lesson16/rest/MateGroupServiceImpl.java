@@ -111,7 +111,7 @@ public class MateGroupServiceImpl implements MateGroupService {
 	}
 
 	//add new hr
-	@PUT
+	@POST
 	@Path("/hrs")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -119,7 +119,7 @@ public class MateGroupServiceImpl implements MateGroupService {
 		MateGroup mateGroup = mateGroups.get(groupId);
 		if (mateGroup != null) {
 			mateGroup.getHumanResources().addAll(Arrays.asList(hr));
-			return Response.status(Status.ACCEPTED).entity(mateGroup).type(MediaType.APPLICATION_JSON).build();
+			return Response.status(Status.ACCEPTED).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 	}
@@ -133,14 +133,14 @@ public class MateGroupServiceImpl implements MateGroupService {
 
 		if (isFound(hrId, mateGroup)){
 			mateGroup.getHumanResources().removeIf(f -> f.getPersonId() == hrId);
-			return Response.status(Status.ACCEPTED).entity(mateGroup).type(MediaType.APPLICATION_JSON).build();
+			return Response.status(Status.ACCEPTED).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 	}
 
 	//update hr. change startWorkYear via queryParam
 	@PUT
-	@Path("/hrs/{hrId}/start-work-year")
+	@Path("/hrs/{hrId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateStartWorkYear(@PathParam("groupId") int groupId, @PathParam("hrId") int hrId, @QueryParam("start-work-year") int startWorkYear) {
 		MateGroup mateGroup = mateGroups.get(groupId);
