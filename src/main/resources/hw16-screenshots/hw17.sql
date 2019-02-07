@@ -89,6 +89,10 @@ inner join offices so on s.rep_office = so.office
 inner join salesreps mgrs on s.manager = mgrs.empl_num and s.rep_office <> mgrs.rep_office
 inner join offices mgrso on mgrs.rep_office = mgrso.office;
 
+--output all name of offices with their workers
+select s.name, city from offices o
+inner join salesreps s on o.office is not null;
+
 --step 31
 
 --Output averege quota and avg sales from salesreps
@@ -103,7 +107,7 @@ select sum(quota), sum (sales) from salesreps;
 
 --Output amount of all offers recived by Dima Malkov
 select sum(amount) from salesreps s
-inner join orders o on s.name = 'Дима Маликов' and o.rep = s.empl_num;
+inner join orders o on s.name = 'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ' and o.rep = s.empl_num;
 --Amount mean a profit, horrible naming
 
 --Output avg price of ACI manufacturer products
@@ -139,11 +143,11 @@ select avg(amount), sum(amount), (100 * avg(amount/credit_limit)), (100 * avg(am
 inner join customers c on o.cust = c.cust_num
 inner join salesreps s on o.rep = s.empl_num;
     
-select amount, amount, amount/credit_limit, amount/quota from orders 
+select amount, amount, amount/credit_limit, amount/quota from orders o
 inner join customers c on o.cust = c.cust_num
 inner join salesreps s on o.rep = s.empl_num;
 
 select distinct c.* from customers c
 inner join orders o on c.cust_num = o.cust
 inner join products p on o.product = p.product_id
-and p.description like '%A%' or p.description like '%a%' or p.description like '%А%' or p.description like '%а%';
+and p.description like '%A%' or p.description like '%a%' or p.description like '%пїЅ%' or p.description like '%пїЅ%';
