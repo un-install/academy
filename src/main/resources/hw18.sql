@@ -142,7 +142,7 @@ group by rep);
 
 --9
 select * from products
-where regexp_like(description,'[??aA].*[??aA]');
+where regexp_like(description,'[аАaA].*[аАaA]');
 
 insert into ma_student.boys(NM, NAME, CITY) values((select max(nm) from boys) + 1 , 'Poul', 'Chalfont');
 
@@ -150,7 +150,7 @@ insert into ma_student.boys(NM, NAME, CITY)
 select ((select max(nm) from boys) + row_number() over (order by empl_num)) as new_id,
 regexp_substr(s.name, '.+ ') as name, o.city from salesreps s
 inner join offices o on s.rep_office = o.office
-where regexp_like(s.name, '?????|????|??????|????|?????');
+where regexp_like(s.name, 'Игорь|Дима|Максим|Вася|Филип');
 
 update ma_student.boys
 set city = 'Gazz Chamber'
