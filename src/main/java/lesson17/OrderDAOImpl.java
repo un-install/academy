@@ -14,13 +14,41 @@ import java.util.Set;
 public class OrderDAOImpl implements OrderDAO {
     @Override
     public Set<Orders> getAllOrders() throws SQLException {
-        return null;
+        Connection conn = OJDBCUtils.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("select * from orders\n" +
+                "inner join products on product_id = product\n");
+        ResultSet rs = stmt.executeQuery();
+
+        Set<Orders> orders = new HashSet<>();
+        while (rs.next()) {
+            orders.add(OJDBCUtils.newOrderByRs(rs, OJDBCUtils.newProductByRs(rs)));
+        }
+        OJDBCUtils.closeAllCloseble(rs, stmt, conn);
+        return orders;
     }
 
     @Override
     public Set<Orders> getAllOrders2() throws SQLException {
-        return null;
+        Connection conn = OJDBCUtils.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("select * from orders");
+        ResultSet rs = stmt.executeQuery();
+        PreparedStatement stmtProduct = conn.prepareStatement("select* from products where product_id = ?");
+        ResultSet rsProduct = null;
+
+        Set<Orders> orders = new HashSet<>();
+        Products product = null;
+        while (rs.next()) {
+            stmtProduct.setString(1, rs.getString("PRODUCT"));
+            rsProduct = stmtProduct.executeQuery();
+            if (rsProduct.next()){
+                product = OJDBCUtils.newProductByRs(rsProduct);
+            }
+            orders.add(OJDBCUtils.newOrderByRs(rs, product));
+        }
+        OJDBCUtils.closeAllCloseble(rs, stmt, rsProduct, stmtProduct, conn);
+        return orders;
     }
+
 
     @Override
     public Orders findOrderById(BigDecimal id) throws SQLException {
@@ -33,16 +61,9 @@ public class OrderDAOImpl implements OrderDAO {
 
         Orders order = null;
         if (rs.next()) {
-            order = new Orders(rs.getBigDecimal("order_num"), rs.getDate("order_date"),
-                    rs.getBigDecimal("CUST"), rs.getBigDecimal("rep"),
-                    rs.getString("mfr"),
-                    rs.getBigDecimal("qty"), rs.getBigDecimal("amount"), new Products(rs.getString("MFR_ID"), rs.getString("PRODUCT_ID"),
-                    rs.getString("DESCRIPTION"), rs.getBigDecimal("PRICE"), rs.getBigDecimal("QTY_ON_HAND")));
+            order = OJDBCUtils.newOrderByRs(rs, OJDBCUtils.newProductByRs(rs));
         }
-
-        rs.close();
-        stmt.close();
-        conn.close();
+        OJDBCUtils.closeAllCloseble(rs, stmt, conn);
         return order;
     }
 
