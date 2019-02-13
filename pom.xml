@@ -118,5 +118,13 @@
             <version>1.19</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.sun.grizzly/grizzly-webcontainer -->
+        <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc7 -->
+        <dependency>
+            <groupId>org.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/ojdbc7.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
