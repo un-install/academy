@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class OrderDAOImpl implements OrderDAO {
     @Override
-    public Set<Orders> getAllOrders() throws SQLException {
+    public Set<Orders> getAllOrdersJoin() throws SQLException {
         Connection conn = OJDBCUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement("select * from orders\n" +
                 "inner join products on product_id = product\n");
@@ -21,14 +21,14 @@ public class OrderDAOImpl implements OrderDAO {
 
         Set<Orders> orders = new HashSet<>();
         while (rs.next()) {
-            orders.add(OJDBCUtils.newOrderByRs(rs, OJDBCUtils.newProductByRs(rs)));
+            orders.add(OJDBCUtils.newOrderByResultSet(rs, OJDBCUtils.newProductByResultSet(rs)));
         }
         OJDBCUtils.closeAllCloseble(rs, stmt, conn);
         return orders;
     }
 
     @Override
-    public Set<Orders> getAllOrders2() throws SQLException {
+    public Set<Orders> getAllOrders() throws SQLException {
         Connection conn = OJDBCUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement("select * from orders");
         ResultSet rs = stmt.executeQuery();
@@ -41,9 +41,9 @@ public class OrderDAOImpl implements OrderDAO {
             stmtProduct.setString(1, rs.getString("PRODUCT"));
             rsProduct = stmtProduct.executeQuery();
             if (rsProduct.next()){
-                product = OJDBCUtils.newProductByRs(rsProduct);
+                product = OJDBCUtils.newProductByResultSet(rsProduct);
             }
-            orders.add(OJDBCUtils.newOrderByRs(rs, product));
+            orders.add(OJDBCUtils.newOrderByResultSet(rs, product));
         }
         OJDBCUtils.closeAllCloseble(rs, stmt, rsProduct, stmtProduct, conn);
         return orders;
@@ -61,7 +61,7 @@ public class OrderDAOImpl implements OrderDAO {
 
         Orders order = null;
         if (rs.next()) {
-            order = OJDBCUtils.newOrderByRs(rs, OJDBCUtils.newProductByRs(rs));
+            order = OJDBCUtils.newOrderByResultSet(rs, OJDBCUtils.newProductByResultSet(rs));
         }
         OJDBCUtils.closeAllCloseble(rs, stmt, conn);
         return order;

@@ -10,9 +10,9 @@ public class Main {
         System.out.println(dao.findOrderById(id));
         System.out.println();
 
-        dao.getAllOrders().forEach(System.out::println);
+        dao.getAllOrdersJoin().forEach(System.out::println);
         System.out.println();
-        dao.getAllOrders2().forEach(System.out::println);
+        dao.getAllOrders().forEach(System.out::println);
         System.out.println();
 
         OfficeDAOImpl odao = new OfficeDAOImpl();

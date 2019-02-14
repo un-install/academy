@@ -14,12 +14,12 @@ public class OfficeDAOTest {
     @Test
     public void testGetAllOffices() throws SQLException {
         Set<Offices> actual = odao.getAllOffices();
-        assertNotNull(actual);
+        assertTrue(actual.size() > 0);
     }
 
     @Test
     public void testGetOfficesByRegion() throws SQLException {
         Set<Offices> actual = odao.getOfficesByRegion("Запад");
-        assertNotNull(actual);
+        assertTrue(actual.size() > 0);
     }
 }

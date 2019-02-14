@@ -18,7 +18,7 @@ public class OfficeDAOImpl implements OfficeDAO {
 
         Set<Offices> offices = new HashSet<>();
         while (rs.next()){
-            offices.add(OJDBCUtils.newOfficeByRs(rs));
+            offices.add(OJDBCUtils.newOfficeByResultSet(rs));
         }
         return offices;
     }
@@ -32,7 +32,7 @@ public class OfficeDAOImpl implements OfficeDAO {
 
         Set<Offices> offices = new HashSet<>();
         while (rs.next()){
-            offices.add(OJDBCUtils.newOfficeByRs(rs));
+            offices.add(OJDBCUtils.newOfficeByResultSet(rs));
         }
         return offices;
     }

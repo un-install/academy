@@ -8,21 +8,22 @@ import java.sql.SQLException;
 import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class OrderDAOTest {
     private OrderDAOImpl dao = new OrderDAOImpl();
     private static final BigDecimal id = new BigDecimal(113042);
 
     @Test
-    public void testGetAllOrders() throws SQLException {
-        Set<Orders> actual = dao.getAllOrders();
-        assertNotNull(actual);
+    public void testGetAllOrdersJoin() throws SQLException {
+        Set<Orders> actual = dao.getAllOrdersJoin();
+        assertTrue(actual.size() > 0);
     }
 
     @Test
-    public void testGetAllOrders2() throws SQLException {
-        Set<Orders> actual = dao.getAllOrders2();
-        assertNotNull(actual);
+    public void testGetAllOrders() throws SQLException {
+        Set<Orders> actual = dao.getAllOrders();
+        assertTrue(actual.size() > 0);
     }
 
     @Test

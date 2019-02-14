@@ -28,18 +28,18 @@ public class OJDBCUtils {
     }
 
 
-    public static Orders newOrderByRs(ResultSet rs, Products product) throws SQLException {
+    public static Orders newOrderByResultSet(ResultSet rs, Products product) throws SQLException {
         return new Orders(rs.getBigDecimal("order_num"), rs.getDate("order_date"),
                 rs.getBigDecimal("CUST"), rs.getBigDecimal("rep"),
                 rs.getString("mfr"),
                 rs.getBigDecimal("qty"), rs.getBigDecimal("amount"), product);
     }
 
-    public static Products newProductByRs(ResultSet rs) throws SQLException {
+    public static Products newProductByResultSet(ResultSet rs) throws SQLException {
         return new Products(rs.getString("MFR_ID"), rs.getString("PRODUCT_ID"),
                 rs.getString("DESCRIPTION"), rs.getBigDecimal("PRICE"), rs.getBigDecimal("QTY_ON_HAND"));
     }
-    public static Offices newOfficeByRs(ResultSet rs) throws SQLException {
+    public static Offices newOfficeByResultSet(ResultSet rs) throws SQLException {
         return new Offices(rs.getBigDecimal("office"), rs.getString("city"),
                 rs.getString("region"), rs.getBigDecimal("mgr"),
                 rs.getBigDecimal("target"), rs.getBigDecimal("sales"));
