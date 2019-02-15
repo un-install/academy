@@ -4,6 +4,7 @@ import lesson17.models.Orders;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -31,4 +32,23 @@ public class OrderDAOTest {
         Orders actual = dao.findOrderById(id);
         assertNotNull(actual);
     }
+
+    @Test
+    public void testInsertOrder() throws SQLException {
+        assertTrue(dao.insertOrder(new Orders(new BigDecimal(1111111113),
+                new Date(2019, 12, 2),new BigDecimal(2102), new BigDecimal(101), "asd", null, null, null)));
+    }
+
+    @Test
+    public void testUpdateOrder() throws SQLException {
+        assertTrue(dao.updateOrder(new Orders( new BigDecimal(1111111113),
+                null,new BigDecimal(2102), new BigDecimal(104), "asd", new BigDecimal(222), new BigDecimal(222), null)));
+    }
+
+    @Test
+    public void testDelete() throws SQLException {
+        assertTrue(dao.deleteOrder(new Orders( BigDecimal.valueOf(1111111113),
+                null,new BigDecimal(2102), new BigDecimal(104), "asd", new BigDecimal(222), new BigDecimal(222), null)));
+    }
+
 }
