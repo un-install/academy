@@ -1,7 +1,9 @@
 package lesson17;
 
 import lesson17.models.Offices;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -9,6 +11,7 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OfficeDAOTest {
     private OfficeDAOImpl odao = new OfficeDAOImpl();
 
