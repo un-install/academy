@@ -41,16 +41,22 @@ public class OfficeDAOImpl implements OfficeDAO {
     }
 
     @Override
-    public boolean insertOffice(Offices office) throws SQLException {
+    public boolean insertOffice(Offices office) {
         Connection conn = OJDBCUtils.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("insert into offices(OFFICE, CITY, REGION, MGR, TARGET, SALES)" +
-                " values (?, ?, ?, ?, ?, ?)");
+        PreparedStatement stmt = null;
+        boolean isOk = false;
+        try {
+            stmt =  conn.prepareStatement("insert into offices(OFFICE, CITY, REGION, MGR, TARGET, SALES)" +
+                    " values (?, ?, ?, ?, ?, ?)");
+            setOfficeValuesToStatement(office, stmt);
 
-        setOfficeValuesToStatement(office, stmt);
-
-        boolean isOk = stmt.executeUpdate() > 0;
-        OJDBCUtils.closeAllCloseble(stmt, conn);
-        return isOk;
+            isOk = stmt.executeUpdate() > 0;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            OJDBCUtils.closeAllCloseble(stmt, conn);
+            return isOk;
+        }
     }
 
     private void setOfficeValuesToStatement(Offices o, PreparedStatement stmt) throws SQLException {
@@ -63,28 +69,42 @@ public class OfficeDAOImpl implements OfficeDAO {
     }
 
     @Override
-    public boolean updateOffice(Offices office) throws SQLException {
+    public boolean updateOffice(Offices office){
         Connection conn = OJDBCUtils.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("update offices set office = ?, city = ?, " +
-                "region = ?, mgr = ?, target = ?, sales =? where office = ?");
+        PreparedStatement stmt = null;
+        boolean isOk = false;
+        try {
+            stmt = conn.prepareStatement("update offices set office = ?, city = ?, " +
+                    "region = ?, mgr = ?, target = ?, sales =? where office = ?");
+            stmt.setBigDecimal(7, office.getOffice());
+            setOfficeValuesToStatement(office, stmt);
 
-        stmt.setBigDecimal(7, office.getOffice());
-        setOfficeValuesToStatement(office, stmt);
+            isOk = stmt.executeUpdate() > 0;
+            OJDBCUtils.closeAllCloseble(stmt, conn);
 
-        boolean isOk = stmt.executeUpdate() > 0;
-        OJDBCUtils.closeAllCloseble(stmt, conn);
-        return isOk;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            OJDBCUtils.closeAllCloseble(stmt, conn);
+            return isOk;
+        }
     }
 
     @Override
-    public boolean deleteOffice(BigDecimal officeId) throws SQLException {
+    public boolean deleteOffice(BigDecimal officeId) {
         Connection conn = OJDBCUtils.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("delete from offices where office = ?");
+        PreparedStatement stmt = null;
+        boolean isOk = false;
+        try {
+            stmt = conn.prepareStatement("delete from offices where office = ?");
+            stmt.setBigDecimal(1, officeId);
 
-        stmt.setBigDecimal(1, officeId);
-
-        boolean isOk = stmt.executeUpdate() > 0;
-        OJDBCUtils.closeAllCloseble(stmt, conn);
-        return isOk;
+            isOk = stmt.executeUpdate() > 0;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            OJDBCUtils.closeAllCloseble(stmt, conn);
+            return isOk;
+        }
     }
 }
