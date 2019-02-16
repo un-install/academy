@@ -28,19 +28,19 @@ public class OfficeDAOTest {
     }
 
     @Test
-    public void testInsertOffice() throws SQLException {
+    public void test1InsertOffice() throws SQLException {
         assertTrue(odao.insertOffice(new Offices(new BigDecimal(1233), "Salt Lake", "Восток",
                 new BigDecimal(104), null, new BigDecimal(2222))));
     }
 
     @Test
-    public void testUpdateOffice() throws SQLException {
+    public void test2UpdateOffice() throws SQLException {
         assertTrue(odao.updateOffice(new Offices(new BigDecimal(1233), "Miami", "Восток",
                 new BigDecimal(103), null, new BigDecimal(1111))));
     }
 
     @Test
-    public void testDeleteOffice() throws SQLException {
+    public void test3DeleteOffice() throws SQLException {
         assertTrue(odao.deleteOffice(new BigDecimal(1233)));
     }
 }
