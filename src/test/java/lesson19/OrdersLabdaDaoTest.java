@@ -1,9 +1,14 @@
 package lesson19;
 
 import lesson17.models.Orders;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -23,6 +28,16 @@ public class OrdersLabdaDaoTest {
             null,new BigDecimal(2102), new BigDecimal(104), "asd",
             new BigDecimal(222), new BigDecimal(222), null);
 
+    private static EmbeddedDatabase db;
+
+    @BeforeClass
+    public static void setUp() {
+        db = new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("classpath:embeded-db-init/create-db-orders.sql")
+                .build();
+    }
+
     @Test
     public void test1InsertOrder() throws SQLException {
         assertTrue(insertOrder(INSERT_ORDER, getConnection()));
@@ -36,6 +51,11 @@ public class OrdersLabdaDaoTest {
     @Test
     public void test3DeleteOrder() throws SQLException {
         assertTrue(deleteOrder(INSERT_ORDER, getConnection()));
+    }
+
+    @AfterClass
+    public static void after(){
+        db.shutdown();
     }
 
 }
