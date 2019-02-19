@@ -1,15 +1,19 @@
 package lesson19.template;
 
-import lesson17.OJDBCUtils;
+import lesson17.OfficeDAO;
 import lesson17.models.Offices;
-import lesson17.models.Orders;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Set;
+
 import static lesson17.OJDBCUtils.setOfficeValuesToStatement;
 
-public class OfficesLambdaDao {
-    public static boolean insertOffice(Offices office, Connection connection) {
+public class OfficesLambdaDao implements OfficeDAO {
+
+    @Override
+    public boolean insertOffice(Offices office, Connection connection) {
         System.out.println("Inserting to Offices...");
         DaoFunctionalInterface daoi = (conn) ->{
             PreparedStatement stmt = conn.prepareStatement("insert into offices(OFFICE, CITY, REGION, MGR, TARGET, SALES)" +
@@ -21,7 +25,7 @@ public class OfficesLambdaDao {
         return daoi.template(connection);
     }
 
-    public static boolean updateOffice(Offices office, Connection connection) {
+    public boolean updateOffice(Offices office, Connection connection) {
         System.out.println("Updating Offices...");
         DaoFunctionalInterface daoi = (conn) ->{
             PreparedStatement stmt = conn.prepareStatement("update offices set office = ?, city = ?, " +
@@ -35,7 +39,7 @@ public class OfficesLambdaDao {
         return daoi.template(connection);
     }
 
-    public static boolean deleteOffice(Offices office, Connection connection) {
+    public boolean deleteOffice(Offices office, Connection connection) {
         System.out.println("Deleting from Offices...");
         DaoFunctionalInterface daoi = (conn) ->{
             PreparedStatement stmt = conn.prepareStatement("delete from offices where office = ?");
@@ -44,5 +48,15 @@ public class OfficesLambdaDao {
         };
 
         return daoi.template(connection);
+    }
+
+    @Override
+    public Set<Offices> getAllOffices() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Set<Offices> getOfficesByRegion(String region) throws SQLException {
+        return null;
     }
 }

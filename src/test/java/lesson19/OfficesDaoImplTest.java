@@ -1,7 +1,8 @@
 package lesson19;
 
+import lesson17.OJDBCUtils;
 import lesson17.models.Offices;
-import lesson19.template.OfficesDaoImpl.*;
+import lesson19.template.OfficesDaoImpl;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -17,22 +18,20 @@ public class OfficesDaoImplTest {
             new BigDecimal(104), null, new BigDecimal(2222));
     private final Offices UPDATE_OFFICE = new Offices(new BigDecimal(1233), "Miami", "Восток",
             new BigDecimal(103), null, new BigDecimal(1111));
+    private OfficesDaoImpl odao = new OfficesDaoImpl();
 
     @Test
     public void test1InsertOffice() throws SQLException {
-        OfficeInsert ofi = new OfficeInsert();
-        assertTrue(ofi.template(INSERT_OFFICE));
+        assertTrue(odao.insertOffice(INSERT_OFFICE, OJDBCUtils.getConnection()));
     }
 
     @Test
     public void test2UpdateOffice() throws SQLException {
-        OfficeUpdate ori = new OfficeUpdate();
-        assertTrue(ori.template(UPDATE_OFFICE));
+        assertTrue(odao.updateOffice(UPDATE_OFFICE, OJDBCUtils.getConnection()));
     }
 
     @Test
     public void test3DeleteOffice() throws SQLException {
-        OfficeDelete ori = new OfficeDelete();
-        assertTrue(ori.template(INSERT_OFFICE));
+        assertTrue(odao.deleteOffice(INSERT_OFFICE, OJDBCUtils.getConnection()));
     }
 }
