@@ -1,8 +1,6 @@
 package lesson19.template;
 
-import lesson17.OJDBCUtils;
 import lesson17.models.Offices;
-import lesson17.models.Orders;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,10 +10,9 @@ import static lesson17.OJDBCUtils.setOfficeValuesToStatement;
 
 public class OfficesDaoImpl {
 
-    public static class OfficeInsert extends abstractDao {
+    public static class OfficeInsert extends abstractDao<Offices> {
         @Override
-        public <K> PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException {
-            Offices office = (Offices) tableObj;
+        public PreparedStatement updateTable(Offices office, Connection conn) throws SQLException {
             PreparedStatement stmt = conn.prepareStatement("insert into offices(OFFICE, CITY, REGION, MGR, TARGET, SALES)" +
                     " values (?, ?, ?, ?, ?, ?)");
             setOfficeValuesToStatement(office, stmt);
@@ -23,11 +20,10 @@ public class OfficesDaoImpl {
         }
     }
 
-    public static class OfficeUpdate extends abstractDao {
+    public static class OfficeUpdate extends abstractDao<Offices> {
 
         @Override
-        public <K> PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException {
-            Offices office = (Offices) tableObj;
+        public PreparedStatement updateTable(Offices office, Connection conn) throws SQLException {
             PreparedStatement stmt = conn.prepareStatement("update offices set office = ?, city = ?, " +
                     "region = ?, mgr = ?, target = ?, sales =? where office = ?");
 
@@ -38,13 +34,11 @@ public class OfficesDaoImpl {
         }
     }
 
-    public static class OfficeDelete extends abstractDao {
+    public static class OfficeDelete extends abstractDao<Offices> {
 
         @Override
-        public <K> PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException {
-            Offices office = (Offices) tableObj;
+        public PreparedStatement updateTable(Offices office, Connection conn) throws SQLException {
             PreparedStatement stmt = conn.prepareStatement("delete from offices where office = ?");
-
             stmt.setBigDecimal(1, office.getOffice());
 
             return stmt;

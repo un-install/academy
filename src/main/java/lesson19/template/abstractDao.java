@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public abstract class abstractDao {
-    public <K> boolean template(K tableObj) {
+public abstract class abstractDao <K> {
+    public boolean template(K tableObj) {
         Connection conn = OJDBCUtils.getConnection();
         PreparedStatement stmt = null;
         boolean isOk = false;
@@ -25,5 +25,5 @@ public abstract class abstractDao {
         }
     }
 
-    public abstract <K > PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException;
+    public abstract PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException;
 }

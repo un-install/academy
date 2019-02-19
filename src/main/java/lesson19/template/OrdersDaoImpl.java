@@ -8,11 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class OrdersDaoImpl {
-    public static class OrderInsert extends abstractDao {
+    public static class OrderInsert extends abstractDao<Orders> {
 
         @Override
-        public <K> PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException {
-            Orders order = (Orders) tableObj;
+        public PreparedStatement updateTable(Orders order, Connection conn) throws SQLException {
             PreparedStatement stmt = conn.prepareStatement("insert into orders(ORDER_NUM,ORDER_DATE ,CUST, REP, MFR, PRODUCT, QTY, AMOUNT)" +
                     " values(?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -21,11 +20,10 @@ public class OrdersDaoImpl {
         }
     }
 
-    public static class OrderUpdate extends abstractDao {
+    public static class OrderUpdate extends abstractDao<Orders> {
 
         @Override
-        public <K> PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException {
-            Orders order = (Orders) tableObj;
+        public PreparedStatement updateTable(Orders order, Connection conn) throws SQLException {
             PreparedStatement stmt = conn.prepareStatement("update orders set order_num = ?, order_date = ?, cust = ?, rep = ?," +
                     " mfr = ?, product = ?, qty = ?, amount = ? where order_num = ?");
 
@@ -35,11 +33,10 @@ public class OrdersDaoImpl {
         }
     }
 
-    public static class OrderDelete extends abstractDao {
+    public static class OrderDelete extends abstractDao<Orders> {
 
         @Override
-        public <K> PreparedStatement updateTable(K tableObj, Connection conn) throws SQLException {
-            Orders order = (Orders) tableObj;
+        public PreparedStatement updateTable(Orders order, Connection conn) throws SQLException {
             PreparedStatement stmt = conn.prepareStatement("delete  orders  where order_num = ?");
 
             stmt.setBigDecimal(1, order.getOrderNum());
