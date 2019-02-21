@@ -41,6 +41,20 @@ public class OfficeDAOImpl implements OfficeDAO {
     }
 
     @Override
+    public boolean insertOffice(Offices office, Connection connection) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean updateOffice(Offices office, Connection connection) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean deleteOffice(Offices office, Connection connection) throws SQLException {
+        return false;
+    }
+
     public boolean insertOffice(Offices office) {
         Connection conn = OJDBCUtils.getConnection();
         PreparedStatement stmt = null;
@@ -68,7 +82,6 @@ public class OfficeDAOImpl implements OfficeDAO {
         stmt.setBigDecimal(6, o.getSales());
     }
 
-    @Override
     public boolean updateOffice(Offices office){
         Connection conn = OJDBCUtils.getConnection();
         PreparedStatement stmt = null;
@@ -90,7 +103,6 @@ public class OfficeDAOImpl implements OfficeDAO {
         }
     }
 
-    @Override
     public boolean deleteOffice(BigDecimal officeId) {
         Connection conn = OJDBCUtils.getConnection();
         PreparedStatement stmt = null;

@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static lesson17.OJDBCUtils.setStatmentOrderValues;
+
 public class OrderDAOImpl implements OrderDAO {
     @Override
     public Set<Orders> getAllOrdersJoin() throws SQLException {
@@ -116,16 +118,5 @@ public class OrderDAOImpl implements OrderDAO {
             System.out.println(resultSetMetaData.getColumnClassName(i) + ", ");
             System.out.println(resultSetMetaData.getColumnTypeName(i));
         }
-    }
-
-    public static void setStatmentOrderValues(PreparedStatement stmt, Orders order) throws SQLException {
-        stmt.setBigDecimal(1, order.getOrderNum());
-        stmt.setDate(2,order.getDate());
-        stmt.setBigDecimal(3, order.getCust());
-        stmt.setBigDecimal(4,order.getRep());
-        stmt.setString(5,order.getMfr());
-        stmt.setString(6, order.getProduct() != null ? order.getProduct().getProduct_id() : null);
-        stmt.setBigDecimal(7, order.getQty());
-        stmt.setBigDecimal(8, order.getAmount());
     }
 }

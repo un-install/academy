@@ -73,4 +73,24 @@ public class OJDBCUtils {
 
         return cpds;
     }
+
+    public static void setStatmentOrderValues(PreparedStatement stmt, Orders order) throws SQLException {
+        stmt.setBigDecimal(1, order.getOrderNum());
+        stmt.setDate(2,order.getDate());
+        stmt.setBigDecimal(3, order.getCust());
+        stmt.setBigDecimal(4,order.getRep());
+        stmt.setString(5,order.getMfr());
+        stmt.setString(6, order.getProduct() != null ? order.getProduct().getProduct_id() : null);
+        stmt.setBigDecimal(7, order.getQty());
+        stmt.setBigDecimal(8, order.getAmount());
+    }
+
+    public static void setOfficeValuesToStatement (Offices office, PreparedStatement stmt) throws SQLException {
+        stmt.setBigDecimal(1, office.getOffice());
+        stmt.setString(2, office.getCity());
+        stmt.setString(3, office.getRegion());
+        stmt.setBigDecimal(4, office.getMgr());
+        stmt.setBigDecimal(5,office.getTarget());
+        stmt.setBigDecimal(6, office.getSales());
+    }
 }
