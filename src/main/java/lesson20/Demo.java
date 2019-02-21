@@ -1,10 +1,9 @@
 package lesson20;
 
-import lesson20.AdapterExample.Adapter;
+import lesson20.AdapterExample.SquerePieToPizza;
 import lesson20.AdapterExample.SquerePie;
 import lesson20.Factory.AbstractFactory;
 import lesson20.Factory.FactoryProducer;
-import lesson20.Pizza;
 import lesson20.ProxyPizza.ProxyPeperony;
 import lesson20.Wrapper.Delivery;
 import lesson20.Wrapper.HotDelivery;
@@ -25,7 +24,7 @@ public class Demo {
 
         //using of adapter
         SquerePie pie = new SquerePie(50);
-        System.out.println(hotDelivery.deliver(new Adapter(pie)));
+        System.out.println(hotDelivery.deliver(new SquerePieToPizza(pie)));
 
         //using of proxy
         Pizza proxyPepe = new ProxyPeperony(35);

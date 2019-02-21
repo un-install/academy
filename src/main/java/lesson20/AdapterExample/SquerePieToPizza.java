@@ -2,10 +2,10 @@ package lesson20.AdapterExample;
 import lesson20.MamaMia.Peperony;
 import lesson20.Pizza;
 
-public class Adapter extends Pizza{
-    SquerePie pie;
+public class SquerePieToPizza extends Pizza{
+    private SquerePie pie;
 
-    public Adapter(SquerePie pie) {
+    public SquerePieToPizza(SquerePie pie) {
         this.pie = pie;
         super.setRadius(pie.getSide() / 2);
     }
