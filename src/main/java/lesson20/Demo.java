@@ -1,5 +1,6 @@
 package lesson20;
 
+import lesson20.AdapterExample.RoundBox;
 import lesson20.AdapterExample.SquerePieToPizza;
 import lesson20.AdapterExample.SquerePie;
 import lesson20.Factory.AbstractFactory;
@@ -24,7 +25,8 @@ public class Demo {
 
         //using of adapter
         SquerePie pie = new SquerePie(50);
-        System.out.println(hotDelivery.deliver(new SquerePieToPizza(pie)));
+        System.out.println("The squere of round box for squere pie is" +
+                new RoundBox(new SquerePieToPizza(pie).getRadius()).getSquere());
 
         //using of proxy
         Pizza proxyPepe = new ProxyPeperony(35);
