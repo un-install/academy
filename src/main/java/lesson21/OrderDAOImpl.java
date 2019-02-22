@@ -1,8 +1,6 @@
 package lesson21;
 
 import lesson17.models.Orders;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,21 +20,20 @@ public class OrderDAOImpl implements OrderDAO {
         factory = Persistence.createEntityManagerFactory("PERSISTENCE");
     }
 
-    private static final Logger LOG = LogManager.getLogger(OrderDAOImpl.class);
     private EntityManager entityManager = factory.createEntityManager();
 
     @Override
-    public Set<Order> getAllOrdersJoin() throws SQLException {
+    public Set<Orders> getAllOrdersJoin() throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Order> getAllOrders() throws SQLException {
+    public Set<Orders> getAllOrders() throws SQLException {
         return null;
     }
 
     @Override
-    public Order findOrderById(BigDecimal id) throws SQLException {
+    public Orders findOrderById(BigDecimal id) throws SQLException {
         return null;
     }
 
