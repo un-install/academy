@@ -23,17 +23,17 @@ public class OrderDAOImpl implements OrderDAO {
     private EntityManager entityManager = factory.createEntityManager();
 
     @Override
-    public Set<Orders> getAllOrdersJoin() throws SQLException {
+    public Set<Order> getAllOrdersJoin() throws SQLException {
         return null;
     }
 
     @Override
-    public Set<Orders> getAllOrders() throws SQLException {
+    public Set<Order> getAllOrders() throws SQLException {
         return null;
     }
 
     @Override
-    public Orders findOrderById(BigDecimal id) throws SQLException {
+    public Order findOrderById(BigDecimal id) throws SQLException {
         return null;
     }
 
@@ -45,11 +45,13 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public boolean updateOrder(Order order) throws SQLException {
-        return false;
+        OrderDAOTemplate dao = (entMgr) -> entMgr.merge(order);
+        return dao.template(entityManager);
     }
-
+    
     @Override
     public boolean deleteOrder(BigDecimal id) throws SQLException {
-        return false;
+        OrderDAOTemplate dao = (entMgr) -> entMgr.remove(entityManager.find(Order.class, id));
+        return dao.template(entityManager);
     }
 }
