@@ -21,30 +21,37 @@ public class OfficeDAOImpl implements OfficeDAO {
     private EntityManager entityManager = factory.createEntityManager();
 
     @Override
-    public Set<Office> getAllOffices() throws SQLException {
+    public Set<Office> getAllOffices() {
         return null;
     }
 
     @Override
-    public Set<Office> getOfficesByRegion(String region) throws SQLException {
+    public Set<Office> getOfficesByRegion(String region){
         return null;
     }
 
     @Override
-    public boolean insertOffice(Office office) throws SQLException {
+    public boolean insertOffice(Office office) {
         DAOTemplate dao = (entMgr) -> entMgr.persist(office);
         return dao.template(entityManager);
     }
 
     @Override
-    public boolean updateOffice(Office office) throws SQLException {
+    public boolean updateOffice(Office office){
         DAOTemplate dao = (entMgr) -> entMgr.merge(office);
         return dao.template(entityManager);
     }
 
     @Override
-    public boolean deleteOffice(BigDecimal id) throws SQLException {
-        DAOTemplate dao = (entMgr) -> entMgr.remove(entityManager.find(Office.class, id));
-        return dao.template(entityManager);
+    public boolean deleteOffice(BigDecimal id) {
+        Office o = entityManager.find(Office.class, id);
+        if (o != null) {
+            DAOTemplate dao = (entMgr) -> entMgr.remove(o);
+            return dao.template(entityManager);
+        }
+        else{
+            System.out.println("entity with that id not found");
+            return false;
+        }
     }
 }
