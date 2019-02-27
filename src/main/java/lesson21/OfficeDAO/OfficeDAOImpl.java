@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Set;
 
@@ -46,7 +45,7 @@ public class OfficeDAOImpl implements OfficeDAO {
     public boolean deleteOffice(BigDecimal id) {
         Office o = entityManager.find(Office.class, id);
         if (o != null) {
-            DAOTemplate dao = (entMgr) -> entMgr.remove(o);
+            DAOTemplate dao = (entMgr) -> entMgr.remove(new Office());
             return dao.template(entityManager);
         }
         else{

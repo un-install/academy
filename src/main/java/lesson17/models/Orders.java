@@ -98,7 +98,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "Order{" +
                 "orderNum=" + orderNum +
                 ", date=" + date +
                 ", cust=" + cust +

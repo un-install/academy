@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.Set;
 
 public interface OfficeDAO {
-        Set<Office> getAllOffices() throws SQLException;
-        Set<Office> getOfficesByRegion(String region) throws SQLException;
-        boolean insertOffice(Office office) throws SQLException;
-        boolean updateOffice(Office office) throws SQLException;
-        boolean deleteOffice(BigDecimal id) throws SQLException;
+        Set<Office> getAllOffices();
+        Set<Office> getOfficesByRegion(String region);
+        boolean insertOffice(Office office);
+        boolean updateOffice(Office office);
+        boolean deleteOffice(BigDecimal id);
 }

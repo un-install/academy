@@ -12,19 +12,21 @@ public class Order implements Serializable {
     private Date date;
     private BigDecimal cust;
     private BigDecimal rep;
-    private String mfr;
-    private String product;
+    private java.lang.String mfr;
+    private Products product;
     private BigDecimal qty;
     private BigDecimal amount;
 
+
     public Order() {
     }
+
 
     public Order(BigDecimal orderNum) {
         this.orderNum = orderNum;
     }
 
-    public Order(BigDecimal orderNum, Date date, BigDecimal cust, BigDecimal rep, String mfr, BigDecimal qty, BigDecimal amount, String product) {
+    public Order(BigDecimal orderNum, Date date, BigDecimal cust, BigDecimal rep, java.lang.String mfr, BigDecimal qty, BigDecimal amount, Products product) {
         this.orderNum = orderNum;
         this.date = date;
         this.cust = cust;
@@ -74,20 +76,21 @@ public class Order implements Serializable {
     }
 
     @Column(name = "MFR")
-    public String getMfr() {
+    public java.lang.String getMfr() {
         return mfr;
     }
 
-    public void setMfr(String mfr) {
+    public void setMfr(java.lang.String mfr) {
         this.mfr = mfr;
     }
 
-    @Column(name = "PRODUCT")
-    public String getProduct() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Product")
+    public Products getProduct() {
         return product;
     }
 
-    public void setProduct(String product) {
+    public void setProduct(Products product) {
         this.product = product;
     }
 
@@ -109,8 +112,19 @@ public class Order implements Serializable {
         this.amount = amount;
     }
 
+    public void setAll(Order o) {
+        this.orderNum = o.orderNum;
+        this.date = o.date;
+        this.cust = o.cust;
+        this.rep = o.rep;
+        this.mfr = o.mfr;
+        this.product = o.product;
+        this.qty = o.qty;
+        this.amount = o.amount;
+    }
+
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Order{" +
                 "orderNum=" + orderNum +
                 ", date=" + date +

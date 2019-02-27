@@ -31,7 +31,12 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public Order findOrderById(BigDecimal id) {
-        return null;
+        Order o = new Order();
+        DAOTemplate dao = (entMgr) -> {
+            o.setAll(entMgr.find(Order.class, id));
+        };
+        dao.template(entityManager);
+        return o;
     }
 
     @Override

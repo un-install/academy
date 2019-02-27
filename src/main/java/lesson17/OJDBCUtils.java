@@ -4,11 +4,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import lesson17.models.Offices;
 import lesson17.models.Orders;
 import lesson17.models.Products;
-import oracle.jdbc.OracleDriver;
 
 import java.beans.PropertyVetoException;
-import java.io.Closeable;
-import java.io.IOException;
 import java.sql.*;
 
 public class OJDBCUtils {
@@ -25,7 +22,7 @@ public class OJDBCUtils {
         }
     }
 
-    public static ResultSet getResultSet(String query) throws SQLException {
+    public static ResultSet getResultSet(java.lang.String query) throws SQLException {
         Connection connection = getConnection();
         PreparedStatement stmt = connection.prepareStatement(query);
         return stmt.executeQuery();
