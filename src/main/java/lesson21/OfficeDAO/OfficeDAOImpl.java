@@ -1,4 +1,6 @@
-package lesson21;
+package lesson21.OfficeDAO;
+
+import lesson21.DAOTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,9 +9,7 @@ import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Set;
 
-
-public class OrderDAOImpl implements OrderDAO {
-
+public class OfficeDAOImpl implements OfficeDAO {
     private static EntityManagerFactory factory;
 
     static {
@@ -20,42 +20,32 @@ public class OrderDAOImpl implements OrderDAO {
     private EntityManager entityManager = factory.createEntityManager();
 
     @Override
-    public Set<Order> getAllOrdersJoin() {
+    public Set<Office> getAllOffices() {
         return null;
     }
 
     @Override
-    public Set<Order> getAllOrders() {
+    public Set<Office> getOfficesByRegion(String region){
         return null;
     }
 
     @Override
-    public Order findOrderById(BigDecimal id) {
-        Order o = new Order();
-        DAOTemplate dao = (entMgr) -> {
-            o.setAll(entMgr.find(Order.class, id));
-        };
-        dao.template(entityManager);
-        return o;
-    }
-
-    @Override
-    public boolean insertOrder(Order order) {
-        DAOTemplate dao = (entMgr) -> entMgr.persist(order);
+    public boolean insertOffice(Office office) {
+        DAOTemplate dao = (entMgr) -> entMgr.persist(office);
         return dao.template(entityManager);
     }
 
     @Override
-    public boolean updateOrder(Order order) {
-        DAOTemplate dao = (entMgr) -> entMgr.merge(order);
+    public boolean updateOffice(Office office){
+        DAOTemplate dao = (entMgr) -> entMgr.merge(office);
         return dao.template(entityManager);
     }
-    
+
     @Override
-    public boolean deleteOrder(BigDecimal id) {
-        Order o = entityManager.find(Order.class, id);
+    public boolean deleteOffice(BigDecimal id) {
+        Office o = entityManager.find(Office.class, id);
         if (o != null) {
-            DAOTemplate dao = (entMgr) -> entMgr.remove(o);
+            DAOTemplate dao = (entMgr) -> entMgr.remove(new Office());
             return dao.template(entityManager);
         }
         else{

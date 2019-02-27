@@ -2,7 +2,7 @@ package lesson21;
 
 import javax.persistence.EntityManager;
 
-public interface OrderDAOTemplate {
+public interface DAOTemplate {
     default boolean template(EntityManager entityManager){
         try {
             entityManager.getTransaction().begin();
