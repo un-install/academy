@@ -1,17 +1,17 @@
-package homeworkx;
+package homeworkx.DAO;
 
-import lesson21.Order;
+import homeworkx.models.ModelInterface;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Set;
 
 
-public class OrderDAOImpl implements OrderDAO {
+public class EntityDAOImpl<K extends ModelInterface> implements EntityDAO<K> {
 
+    private final Class<K> type;
     private static EntityManagerFactory factory;
 
     static {
@@ -21,41 +21,38 @@ public class OrderDAOImpl implements OrderDAO {
 
     private EntityManager entityManager = factory.createEntityManager();
 
+    public EntityDAOImpl(Class<K> type) {
+        this.type = type;
+    }
+
     @Override
-    public Set<Order> getAllOrdersJoin() {
+    public Set<K> getAllEntities() {
         return null;
     }
 
     @Override
-    public Set<Order> getAllOrders() {
-        return null;
-    }
-
-    @Override
-    public Order findOrderById(BigDecimal id) {
-        Order o = new Order();
-        DAOTemplate dao = (entMgr) -> {
-            o.setAll(entMgr.find(Order.class, id));
-        };
+    public<T> K findEntityById(T id) throws IllegalAccessException, InstantiationException {
+        K o = type.newInstance();
+        DAOTemplate dao = (entMgr) -> o.setAll(entMgr.find(type, id));
         dao.template(entityManager);
         return o;
     }
 
     @Override
-    public boolean insertOrder(Order order) {
-        DAOTemplate dao = (entMgr) -> entMgr.persist(order);
+    public boolean insertEntity(K entity) {
+        DAOTemplate dao = (entMgr) -> entMgr.persist(entity);
         return dao.template(entityManager);
     }
 
     @Override
-    public boolean updateOrder(Order order) {
-        DAOTemplate dao = (entMgr) -> entMgr.merge(order);
+    public boolean updateEntity(K entity) {
+        DAOTemplate dao = (entMgr) -> entMgr.merge(entity);
         return dao.template(entityManager);
     }
-    
+
     @Override
-    public boolean deleteOrder(BigDecimal id) {
-        Order o = entityManager.find(Order.class, id);
+    public <T> boolean deleteEntity(T id) {
+        K o = (entityManager.find(type, id));
         if (o != null) {
             DAOTemplate dao = (entMgr) -> entMgr.remove(o);
             return dao.template(entityManager);

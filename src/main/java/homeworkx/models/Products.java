@@ -8,14 +8,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products", schema = "MA_STUDENT")
-public class Products implements Serializable {
+public class Products implements Serializable, ModelInterface {
 
     private String mfr_id;
     private String product_id;
     private String description;
     private BigDecimal price;
     private BigDecimal qty_on_hand;
-    private Set<Order> orders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>(0);
 
     public Products() {
     }
@@ -24,7 +24,17 @@ public class Products implements Serializable {
         this.product_id = product_id;
     }
 
-    public void setAll(Products p) {
+    public Products(String mfr_id, String product_id, String description, BigDecimal price, BigDecimal qty_on_hand, Set<Order> orders) {
+        this.mfr_id = mfr_id;
+        this.product_id = product_id;
+        this.description = description;
+        this.price = price;
+        this.qty_on_hand = qty_on_hand;
+        this.orders = orders;
+    }
+
+    public void setAll(ModelInterface mi) {
+        Products p = (Products) mi;
         this.mfr_id = p.mfr_id;
         this.product_id = p.product_id;
         this.description = p.description;
@@ -89,16 +99,15 @@ public class Products implements Serializable {
         this.orders = orders;
     }
 
-
-
     @Override
     public String toString() {
         return "Products{" +
-                "mfr_id='" + mfr_id + '\'' +
-                ", product_id='" + product_id + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", qty_on_hand=" + qty_on_hand +
-                '}';
+                "\n mfr_id='" + mfr_id + '\'' +
+                "\n product_id='" + product_id + '\'' +
+                "\n description='" + description + '\'' +
+                "\n price=" + price +
+                "\n qty_on_hand=" + qty_on_hand +
+                "\n orders=" + orders +
+                "\n}";
     }
 }
