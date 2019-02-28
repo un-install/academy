@@ -7,11 +7,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "ORDERS", schema = "MA_STUDENT")
-public class Order implements Serializable {
+public class Order implements Serializable, ModelInterface {
     private BigDecimal orderNum;
     private Date date;
-    private BigDecimal cust;
-    private BigDecimal rep;
+    private Customer cust;
+    private Salesrep rep;
     private String mfr;
     private Products product;
     private BigDecimal qty;
@@ -26,7 +26,7 @@ public class Order implements Serializable {
         this.orderNum = orderNum;
     }
 
-    public Order(BigDecimal orderNum, Date date, BigDecimal cust, BigDecimal rep, String mfr, BigDecimal qty, BigDecimal amount, Products product) {
+    public Order(BigDecimal orderNum, Date date, Customer cust, Salesrep rep, String mfr, BigDecimal qty, BigDecimal amount, Products product) {
         this.orderNum = orderNum;
         this.date = date;
         this.cust = cust;
@@ -57,21 +57,23 @@ public class Order implements Serializable {
         this.date = date;
     }
 
-    @Column(name = "CUST")
-    public BigDecimal getCust() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cust")
+    public Customer getCust() {
         return cust;
     }
 
-    public void setCust(BigDecimal cust) {
+    public void setCust(Customer cust) {
         this.cust = cust;
     }
 
-    @Column(name = "REP")
-    public BigDecimal getRep() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rep")
+    public Salesrep getRep() {
         return rep;
     }
 
-    public void setRep(BigDecimal rep) {
+    public void setRep(Salesrep rep) {
         this.rep = rep;
     }
 
@@ -112,7 +114,9 @@ public class Order implements Serializable {
         this.amount = amount;
     }
 
-    public void setAll(Order o) {
+    @Override
+    public void setAll(ModelInterface mi) {
+        Order o = (Order) mi;
         this.orderNum = o.orderNum;
         this.date = o.date;
         this.cust = o.cust;
@@ -126,14 +130,14 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         return "Order{" +
-                "orderNum=" + orderNum +
-                ", date=" + date +
-                ", cust=" + cust +
-                ", rep=" + rep +
-                ", mfr='" + mfr + '\'' +
-                ", product=" + product +
-                ", qty=" + qty +
-                ", amount=" + amount +
-                '}';
+                "\n orderNum=" + orderNum +
+                "\n date=" + date +
+                "\n cust=" + cust.getCustNum() +
+                "\n rep=" + rep.getEmplNum() +
+                "\n mfr='" + mfr + '\'' +
+                "\n product=" + product.getProduct_id() +
+                "\n qty=" + qty +
+                "\n amount=" + amount +
+                "\n}";
     }
 }

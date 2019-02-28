@@ -1,21 +1,21 @@
 package homeworkx.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "OFFICES", schema = "MA_STUDENT")
-public class Office implements Serializable {
+public class Office implements Serializable, ModelInterface {
     private BigDecimal office;
     private String city;
     private String region;
-    private BigDecimal mgr;
+    private Salesrep mgr;
     private BigDecimal target;
     private BigDecimal sales;
+    private Set<Salesrep> employees = new HashSet<>();
 
     public Office() {
     }
@@ -24,13 +24,14 @@ public class Office implements Serializable {
         this.office = office;
     }
 
-    public Office(BigDecimal office, String city, String region, BigDecimal mgr, BigDecimal target, BigDecimal sales) {
+    public Office(BigDecimal office, String city, String region, Salesrep mgr, BigDecimal target, BigDecimal sales, Set<Salesrep> employees) {
         this.office = office;
         this.city = city;
         this.region = region;
         this.mgr = mgr;
         this.target = target;
         this.sales = sales;
+        this.employees = employees;
     }
 
     @Id
@@ -61,12 +62,13 @@ public class Office implements Serializable {
         this.region = region;
     }
 
-    @Column(name = "MGR")
-    public BigDecimal getMgr() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mgr")
+    public Salesrep getMgr() {
         return mgr;
     }
 
-    public void setMgr(BigDecimal mgr) {
+    public void setMgr(Salesrep mgr) {
         this.mgr = mgr;
     }
 
@@ -88,15 +90,36 @@ public class Office implements Serializable {
         this.sales = sales;
     }
 
+    @OneToMany(mappedBy = "repOffice")
+    public Set<Salesrep> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Salesrep> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public String toString() {
-        return "Offices{" +
+        return "Office{" +
                 "office=" + office +
                 ", city='" + city + '\'' +
                 ", region='" + region + '\'' +
-                ", mgr=" + mgr +
+                ", mgr=" + mgr.getEmplNum() +
                 ", target=" + target +
                 ", sales=" + sales +
+                ", employees=" + employees +
                 '}';
+    }
+
+    @Override
+    public void setAll(ModelInterface mi) {
+        Office of = (Office) mi;
+        this.office = of.office;
+        this.city = of.city;
+        this.region = of.region;
+        this.mgr = of.mgr;
+        this.target = of.target;
+        this.sales = of.sales;
     }
 }
