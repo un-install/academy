@@ -1,4 +1,4 @@
-package homeworkx;
+package homeworkx.DAO;
 
 import javax.persistence.EntityManager;
 
