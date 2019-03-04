@@ -11,9 +11,12 @@ public class Order implements Serializable, ModelInterface {
     private BigDecimal orderNum;
     private Date date;
     private Customer cust;
+    private BigDecimal proxyCust;
     private Salesrep rep;
+    private BigDecimal proxyRep;
     private String mfr;
     private Products product;
+    private String proxyProduct;
     private BigDecimal qty;
     private BigDecimal amount;
 
@@ -57,7 +60,7 @@ public class Order implements Serializable, ModelInterface {
         this.date = date;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cust")
     public Customer getCust() {
         return cust;
@@ -67,7 +70,7 @@ public class Order implements Serializable, ModelInterface {
         this.cust = cust;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "rep")
     public Salesrep getRep() {
         return rep;
@@ -86,8 +89,8 @@ public class Order implements Serializable, ModelInterface {
         this.mfr = mfr;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Product")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product")
     public Products getProduct() {
         return product;
     }
@@ -114,6 +117,33 @@ public class Order implements Serializable, ModelInterface {
         this.amount = amount;
     }
 
+    @Column(name = "cust", insertable = false, updatable = false)
+    public BigDecimal getProxyCust() {
+        return proxyCust;
+    }
+
+    public void setProxyCust(BigDecimal proxyCust) {
+        this.proxyCust = proxyCust;
+    }
+
+    @Column(name = "rep", insertable = false, updatable = false)
+    public BigDecimal getProxyRep() {
+        return proxyRep;
+    }
+
+    public void setProxyRep(BigDecimal proxyRep) {
+        this.proxyRep = proxyRep;
+    }
+
+    @Column(name = "product", insertable = false, updatable = false)
+    public String getProxyProduct() {
+        return proxyProduct;
+    }
+
+    public void setProxyProduct(String proxyProduct) {
+        this.proxyProduct = proxyProduct;
+    }
+
     @Override
     public void setAll(ModelInterface mi) {
         Order o = (Order) mi;
@@ -125,19 +155,22 @@ public class Order implements Serializable, ModelInterface {
         this.product = o.product;
         this.qty = o.qty;
         this.amount = o.amount;
+        this.proxyCust = o.proxyCust;
+        this.proxyRep = o.proxyRep;
+        this.proxyProduct = o.proxyProduct;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
-                "\n orderNum=" + orderNum +
-                "\n date=" + date +
-                "\n cust=" + cust.getCustNum() +
-                "\n rep=" + rep.getEmplNum() +
-                "\n mfr='" + mfr + '\'' +
-                "\n product=" + product.getProduct_id() +
-                "\n qty=" + qty +
-                "\n amount=" + amount +
-                "\n}";
+        return "\nOrder{" +
+                " orderNum=" + orderNum +
+                " date=" + date +
+                " cust=" + proxyCust +
+                " rep=" + proxyRep +
+                " mfr='" + mfr + '\'' +
+                " product=" + proxyProduct +
+                " qty=" + qty +
+                " amount=" + amount +
+                "}";
     }
 }
